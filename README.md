@@ -1,4 +1,10 @@
-# Basic Flow
+# Secure Transaction History Module
+> Demo Video:
+> - Overall (IOS Simulator): https://drive.google.com/file/d/10AMh83pax5872yitd7DLBUAW6xY0L6as/view?usp=sharing
+> - Android Auth (Android Emulator): https://drive.google.com/file/d/155zxjSE7or3avGCs5yJkrW4CQ_waNEcy/view?usp=sharing
+> - IOS Auth (IOS Physical Device): https://drive.google.com/file/d/1fe6HisjijgU7gXsyvsgBpdOCAXR_wRKR/view?usp=sharing
+
+## Basic Flow
 
 ```bash
 # using Yarn
@@ -16,19 +22,19 @@ yarn android
 yarn start
 ```
 
-### If you are using IOS simulator > Please ensure u go to: Feature > Face ID / Touch ID > Enrolled
+#### If you are using IOS simulator > Please ensure u go to: Feature > Face ID / Touch ID > Enrolled
 
-Login with Success: Feature > Face ID / Touch ID > Matching Face/Touch
-Login with Failed: Feature > Face ID / Touch ID > Non-matching Face/Touch
+- Login with Success: Feature > Face ID / Touch ID > Matching Face/Touch
+- Login with Failed: Feature > Face ID / Touch ID > Non-matching Face/Touch
 
-### If you are using Android emulator > Please enable your fingerprint at phone settings
+#### If you are using Android emulator > Please enable your fingerprint at phone settings
 
-Login with Success: Select the VALID fingerprint that u have set in the settings
-Login with Failed: Select the INVALID fingerprint that u have set in the settings
+- Login with Success: Select the VALID fingerprint that u have set in the settings
+- Login with Failed: Select the INVALID fingerprint that u have set in the settings
 
-## ISSUE
+## EXTRA: INSTALLATION ISSUE
 
-If you're having error while install, will recommend you to delete /ios and /android folder and recreate back with following cmd
+> If you're having error while install, will recommend you to delete /ios and /android folder and recreate back with following cmd
 
 ```bash
 ## Install eject module ##
@@ -38,22 +44,24 @@ npm i react-native-eject
 npx react-native eject
 ```
 
-## FOR ANDROID
-
-File path: android/app/src/main/AndroidManifest.xml
+### FOR ANDROID
+```bash
+# File path: android/app/src/main/AndroidManifest.xml
 <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
-File path: android/app/build.gradle (NOT android/build.gradle):
+# File path: android/app/build.gradle (NOT android/build.gradle):
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
+```
+### FOR IOS
+- Please ensure Signing & Capabilities is selected
+- In case it's not included in running pod-install, we can manually add in to the file
+```bash
 
-## FOR IOS
-
-In case it's not included in running pod-install, we can manually add in to the file
-File path: /ios/Podfile
+# File path: /ios/Podfile
 pod 'PasscodeAuth', :path => '../node_modules/@el173/react-native-passcode-auth'
 pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-File path: /ios/TransactionHistoryModule/Info.plist
+# File path: /ios/TransactionHistoryModule/Info.plist
 <key>UIAppFonts</key>
 <array>
 <string>AntDesign.ttf</string>
@@ -78,10 +86,9 @@ File path: /ios/TransactionHistoryModule/Info.plist
 </array>
 <key>NSFaceIDUsageDescription</key>
 <string>App requesting face id usage</string>
+```
 
-Also, please ensure Signing & Capabilities is selected
-
-Other ISSUE for IOS
+#### Other ISSUE for IOS
 
 1. PhaseScriptExecution [CP-User]\ [Hermes]\ Replace\ Hermes\ for\ the\ right\ configuration,\ if\ needed /Users/junwong/Library/Developer/Xcode/DerivedData/TransactionHistoryModule-
 
@@ -107,4 +114,4 @@ AND
 
 Xcode > TransactionHistoryModule > Build Phases > Copy Bundle Resources > Click on '+' > add in the fonts folder
 
-### If there is still any issue, do reach me out!
+### If still have any issue, do reach me out!
