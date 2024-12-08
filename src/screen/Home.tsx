@@ -30,7 +30,6 @@ const Home = () => {
   );
 
   const testId = {
-    dropDown: "test-drop-down",
     sortButton: "test-sort-button",
     trxHistoryDetail: "test-trxHistory-detail",
     flatList: "test-flat-list",
