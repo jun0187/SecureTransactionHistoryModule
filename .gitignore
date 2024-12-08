@@ -13,8 +13,10 @@ yarn-error.log*
 *.tsbuildinfo
 
 # React Native build folders
-/android/
-/ios/
+/android/app/build
+/android/.gradle
+/ios/Pods
+/ios/build
 
 # .env files (if you're using environment variables)
 .env
