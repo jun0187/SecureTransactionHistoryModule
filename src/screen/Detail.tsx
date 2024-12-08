@@ -1,17 +1,17 @@
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   TextStyle,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { useSelector } from "react-redux";
 import React from "react";
-import { backgroundStyle } from "../../App";
+import { NAVIGATION, TRX_TYPE } from "../constant";
+import { StyleProp } from "react-native";
+import StackContainer from "../component/StackContainer";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { TRX_TYPE } from "../constant";
-import { StyleProp } from "react-native";
 
 const Detail = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -22,7 +22,6 @@ const Detail = () => {
 
   const testID = {
     container: "test-detail-container",
-    bookBtn: "test-book-btn",
   };
 
   const amountStyle = (): StyleProp<TextStyle> => {
@@ -36,12 +35,8 @@ const Detail = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle()}>
-      <View
-        style={styles.container}
-        testID={testID.container}
-        key={trxHistoryDetail.id}
-      >
+    <StackContainer title="Transaction Detail" style={styles.container}>
+      <View testID={testID.container} key={trxHistoryDetail.id}>
         <View style={styles.innerContainer}>
           <Text style={styles.typeStyle}>
             {trxHistoryDetail.type.toUpperCase()}
@@ -62,18 +57,24 @@ const Detail = () => {
           <Text style={styles.defaultFontSize}>Date</Text>
           <Text style={styles.defaultFontSize}>{trxHistoryDetail.date}</Text>
         </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(NAVIGATION.HOME)}
+          style={styles.backButton}
+          testID="test-logout-button"
+        >
+          <Text>Back</Text>
+        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </StackContainer>
   );
 };
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: "10%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "5%",
+    marginVertical: "10%",
   },
   innerContainer: {
+    marginTop: "8%",
     flexDirection: "row",
     alignItems: "stretch",
     justifyContent: "space-between",
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
   },
   typeStyle: {
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 17,
   },
   horizontalLine: {
     borderBottomColor: "black",
@@ -93,6 +94,13 @@ const styles = StyleSheet.create({
   },
   defaultFontSize: {
     fontSize: 15,
+  },
+  backButton: {
+    borderRadius: 10,
+    backgroundColor: "#F8E7D8",
+    marginVertical: "7%",
+    paddingHorizontal: "43%",
+    paddingVertical: "3%",
   },
 });
 export default Detail;

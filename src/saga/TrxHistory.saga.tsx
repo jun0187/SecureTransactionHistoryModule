@@ -1,5 +1,5 @@
 import { PayloadAction, createAction } from "@reduxjs/toolkit";
-import { put, select, takeEvery } from "redux-saga/effects";
+import { delay, put, select, takeEvery } from "redux-saga/effects";
 import { setTrxHistoryList } from "../reducer/TrxHistory.reducer";
 // import axios from "axios";
 import { TransactionListResModel } from "../interface";
@@ -21,6 +21,8 @@ export function* getTrxHistoryList(action: PayloadAction<{ page: number }>) {
       setTrxHistoryList({ ...trxHistoryList, isLoading: true, isError: false })
     );
 
+    // Simulate API called with 1 seconds
+    yield delay(1000);
     /***To call API***/
     // const { data } = yield call(() => {
     //   return axios.get('API_LINK', {

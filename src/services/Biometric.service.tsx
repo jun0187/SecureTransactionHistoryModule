@@ -21,7 +21,7 @@ export const getBiometricType = async () => {
       return biometryType;
     })
     .catch((error) => {
-      Alert.alert("Error::", error);
+      Alert.alert("Error::", error.message);
       return null;
     });
 };

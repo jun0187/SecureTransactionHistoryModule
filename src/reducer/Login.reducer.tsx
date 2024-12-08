@@ -4,10 +4,12 @@ import { BIOMETRIC_TYPE } from "../constant";
 
 export interface LoginState {
   biometryType: BIOMETRIC_TYPE | null;
+  isLogin: boolean;
 }
 
 const initialState: LoginState = {
   biometryType: null,
+  isLogin: false,
 };
 
 export const loginSlice = createSlice({
@@ -17,9 +19,12 @@ export const loginSlice = createSlice({
     setBiometricType: (state, action: PayloadAction<BIOMETRIC_TYPE | null>) => {
       state.biometryType = action.payload;
     },
+    setIsLogin: (state, action: PayloadAction<boolean>) => {
+      state.isLogin = action.payload;
+    },
   },
 });
 
-export const { setBiometricType } = loginSlice.actions;
+export const { setBiometricType, setIsLogin } = loginSlice.actions;
 
 export default loginSlice.reducer;

@@ -5,13 +5,13 @@ import {
 
 export const transactionDataListPage1Mock: TransactionDataModel[] = [
   {
-    amount: 100,
+    amount: 10.2,
     date: "07/06/2024",
     description: "Pay bill",
     type: "credit",
   },
   {
-    amount: 101,
+    amount: 101.33,
     date: "08/06/2024",
     description: "Transfer to Salmon",
     type: "credit",
@@ -196,6 +196,7 @@ export const transactionListResMock = (
   pageNo: number
 ): TransactionListResModel => {
   let result: Array<TransactionDataModel>;
+
   switch (pageNo) {
     case 1:
     default:
@@ -212,6 +213,6 @@ export const transactionListResMock = (
     page: pageNo,
     results: result,
     total_pages: 10,
-    total_results: 10,
+    total_results: 30,
   };
 };

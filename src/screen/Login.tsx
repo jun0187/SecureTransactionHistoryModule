@@ -1,40 +1,25 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { backgroundStyle } from "../../App";
-import {
-  BIOMETRIC_TYPE,
-  DeviceHeight,
-  DeviceWidth,
-  NAVIGATION,
-} from "../constant";
+import { Image, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { BIOMETRIC_TYPE } from "../constant";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { authenticateBiometric } from "../services/Biometric.service";
 import { useDispatch, useSelector } from "react-redux";
-import { getTrxHistoryListAction } from "../saga/TrxHistory.saga";
+import StackContainer from "../component/StackContainer";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import { setIsLogin } from "../reducer/Login.reducer";
 
 const Login = () => {
-  const navigation = useNavigation<StackNavigationProp<any>>();
   const styles = useStyle();
   const dispatch = useDispatch();
-  const [isAuth, setIsAuth] = useState(false);
+
   const biometryType = useSelector((state: any) => state.login.biometryType);
 
-  useEffect(() => {
-    if (isAuth) {
-      dispatch(
-        getTrxHistoryListAction({
-          page: 1,
-        })
-      );
-      navigation.navigate(NAVIGATION.HOME);
-    }
-  }, [isAuth]);
-
   const onPressAuth = async () => {
-    setIsAuth(await authenticateBiometric());
+    // if biometricType is null, Next Button is show and navigate to Home screen
+    dispatch(
+      setIsLogin(biometryType !== null ? await authenticateBiometric() : true)
+    );
   };
 
   const iconName = () => {
@@ -43,31 +28,53 @@ const Login = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle()}>
-      <View style={styles.listingContainer}>
-        <Text style={styles.welcome}>Welcome</Text>
-        <TouchableOpacity onPress={onPressAuth} style={{ marginLeft: "7%" }}>
+    <StackContainer style={styles.container}>
+      <Text style={styles.titleText}>Welcome</Text>
+      <Image
+        style={styles.logo}
+        source={require("../../assets/ytl_sea_digital_bank_project_logo.jpeg")}
+      />
+      <TouchableOpacity
+        onPress={onPressAuth}
+        style={{ marginHorizontal: "7%" }}
+      >
+        <View style={styles.biometricLogin}>
+          <Text style={styles.text}>
+            {biometryType !== null ? "Biometric Login" : "Next"}
+          </Text>
+
           {biometryType !== null && <Icon name={iconName()} size={40} />}
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+        </View>
+      </TouchableOpacity>
+    </StackContainer>
   );
 };
 
-const useStyle = (deviceWidth = DeviceWidth, deviceHeight = DeviceHeight) =>
+const useStyle = () =>
   StyleSheet.create({
-    listingContainer: {
-      position: "absolute",
-      top: deviceHeight * 0.25,
-      left: 0,
-      right: 0,
-      justifyContent: "center",
-      alignItems: "center",
+    container: {
+      flex: 1,
+      paddingBottom: "20%",
     },
-    welcome: {
-      fontSize: 30,
+    biometricLogin: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-around",
+      borderRadius: 30,
+      backgroundColor: Colors.light,
+      paddingVertical: "7%",
+      paddingHorizontal: "15%",
+    },
+    logo: {
+      width: 250,
+      height: 250,
+    },
+    titleText: {
+      fontSize: 26,
       fontWeight: "bold",
-      fontFamily: "Cochin",
+    },
+    text: {
+      fontSize: 16,
     },
   });
 export default Login;

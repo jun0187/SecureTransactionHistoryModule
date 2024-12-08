@@ -9,10 +9,10 @@ export enum NAVIGATION {
   DETAIL = "DETAIL",
 }
 
-export enum TRX_TYPE {
-  CREDIT = "credit",
-  DEBIT = "debit",
-}
+export const TRX_TYPE = {
+  CREDIT: "credit",
+  DEBIT: "debit",
+};
 
 export enum BIOMETRIC_TYPE {
   FACE_ID = "FaceID",
