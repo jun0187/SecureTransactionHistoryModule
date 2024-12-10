@@ -26,9 +26,9 @@ const Detail = () => {
 
   const amountStyle = (): StyleProp<TextStyle> => {
     let color = "black";
-    if (trxHistoryDetail.type === TRX_TYPE.CREDIT) {
+    if (trxHistoryDetail.type === TRX_TYPE.DEBIT) {
       color = "red";
-    } else if (trxHistoryDetail.type === TRX_TYPE.DEBIT) {
+    } else if (trxHistoryDetail.type === TRX_TYPE.CREDIT) {
       color = "green";
     }
     return { color: color, fontSize: 19 };
@@ -42,7 +42,7 @@ const Detail = () => {
             {trxHistoryDetail.type.toUpperCase()}
           </Text>
           <Text style={amountStyle()}>
-            {trxHistoryDetail.type === TRX_TYPE.CREDIT ? "-" : ""} MYR{" "}
+            {trxHistoryDetail.type === TRX_TYPE.DEBIT ? "-" : ""} MYR{" "}
             {trxHistoryDetail.amount.toFixed(2)}
           </Text>
         </View>

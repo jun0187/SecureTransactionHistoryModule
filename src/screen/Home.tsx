@@ -60,12 +60,12 @@ const Home = () => {
   };
 
   const amountDisplay = (item: any) => {
-    const prefix = item.type === TRX_TYPE.CREDIT ? "-" : "+";
+    const prefix = item.type === TRX_TYPE.DEBIT ? "-" : "+";
     const amount = isMaskedAmount ? "*****" : item.amount.toFixed(2);
     const displayAmount = `${prefix} MYR ${amount}`;
 
     return (
-      <Text style={{ color: item.type === TRX_TYPE.CREDIT ? "red" : "green" }}>
+      <Text style={{ color: item.type === TRX_TYPE.DEBIT ? "red" : "green" }}>
         {displayAmount}
       </Text>
     );
