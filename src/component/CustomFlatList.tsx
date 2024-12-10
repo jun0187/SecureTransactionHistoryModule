@@ -1,6 +1,7 @@
 import {
   ActivityIndicator,
   Alert,
+  Dimensions,
   FlatList,
   StyleSheet,
   Text,
@@ -8,9 +9,11 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
+import { DataModel } from "../interface";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 interface CustomFlatListProps {
-  data: any;
+  data: DataModel<any> | null;
   onPressItem: (item: any) => void;
   updateList: (pageNo: number) => void;
   rightItem?: (item: any) => React.JSX.Element;
@@ -20,6 +23,7 @@ const CustomFlatList = (props: CustomFlatListProps) => {
   const testId = {
     trxListingDetail: "test-listing-detail",
     flatList: "test-flat-list",
+    refreshBtn: "test-refresh-btn",
   };
   const pageNo = useRef(1);
   const [refreshing, setRefreshing] = useState(false);
@@ -97,6 +101,26 @@ const CustomFlatList = (props: CustomFlatListProps) => {
           <></>
         )
       }
+      ListEmptyComponent={
+        !data?.isLoading && !refreshing ? (
+          <View style={styles.emptyContainer}>
+            <TouchableOpacity
+              onPress={onRefresh}
+              style={styles.refreshBtn}
+              testID={testId.refreshBtn}
+            >
+              <Text>Refresh</Text>
+              <MaterialCommunityIcons
+                name={"refresh"}
+                size={20}
+                color="#664229"
+              />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <></>
+        )
+      }
     />
   );
 };
@@ -107,6 +131,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginHorizontal: "7%",
     marginTop: "2%",
+  },
+  emptyContainer: {
+    width: Dimensions.get("window").width - 32,
+    padding: "5%",
+    marginVertical: "1%",
   },
   detailContainer: {
     flexDirection: "row",
@@ -124,6 +153,15 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     width: "100%",
     marginVertical: "3%",
+  },
+  refreshBtn: {
+    borderRadius: 10,
+    backgroundColor: "#F8E7D8",
+    paddingVertical: "3%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: "15%",
   },
 });
 

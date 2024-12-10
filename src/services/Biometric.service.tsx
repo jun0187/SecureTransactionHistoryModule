@@ -20,7 +20,7 @@ export const getBiometricType = async () => {
     .then((biometryType) => {
       return biometryType;
     })
-    .catch((error) => {
+    .catch((error: Error) => {
       Alert.alert("Error::", error.message);
       return null;
     });
@@ -28,10 +28,10 @@ export const getBiometricType = async () => {
 
 export const authenticateBiometric = async () => {
   return await TouchID.authenticate("Authentication", optionalConfigObject)
-    .then((success: any) => {
+    .then((success: boolean) => {
       return success;
     })
-    .catch(async (error: any) => {
+    .catch(async (error: Error) => {
       if (error.name === "LAErrorUserFallback") {
         return await passCodeAuth();
       }
@@ -44,10 +44,10 @@ export const authenticateBiometric = async () => {
 
 export const passCodeAuth = async () => {
   return await PasscodeAuth.authenticate("PassCode Auth")
-    .then((success: any) => {
+    .then((success: boolean) => {
       return success;
     })
-    .catch((error: any) => {
+    .catch((error: Error) => {
       if (error.message !== "LAErrorUserCancel") {
         Alert.alert("PassCode Error: ", error.message);
       }

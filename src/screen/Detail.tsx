@@ -10,12 +10,15 @@ import React from "react";
 import { NAVIGATION, TRX_TYPE } from "../constant";
 import { StyleProp } from "react-native";
 import StackContainer from "../component/StackContainer";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from "@react-navigation/native";
 import { RootState } from "../reducer/index.reducer";
 
 const Detail = () => {
-  const navigation = useNavigation<StackNavigationProp<any>>();
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
 
   const trxHistoryDetail = useSelector(
     (state: RootState) => state.trxHistory.trxHistoryDetail
@@ -23,6 +26,7 @@ const Detail = () => {
 
   const testID = {
     container: "test-detail-container",
+    backBtn: "test-back-button",
   };
 
   const amountStyle = (): StyleProp<TextStyle> => {
@@ -61,7 +65,7 @@ const Detail = () => {
         <TouchableOpacity
           onPress={() => navigation.navigate(NAVIGATION.HOME)}
           style={styles.backButton}
-          testID="test-logout-button"
+          testID={testID.backBtn}
         >
           <Text>Back</Text>
         </TouchableOpacity>

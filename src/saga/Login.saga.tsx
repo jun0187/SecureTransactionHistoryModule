@@ -9,8 +9,8 @@ export function* getBiometryType() {
   try {
     const bioType: BIOMETRIC_TYPE = yield call(getBiometricType);
     yield put(setBiometricType(bioType));
-  } catch (e: any) {
-    Alert.alert("Could not get biometry Type: ", e);
+  } catch (e) {
+    Alert.alert("Could not get biometry Type: ", (e as Error).message);
   }
 }
 

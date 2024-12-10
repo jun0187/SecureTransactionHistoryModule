@@ -1,9 +1,12 @@
-import { useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import React from "react";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { NAVIGATION, TRX_TYPE } from "../constant";
 import { getTrxHistoryListAction } from "../saga/TrxHistory.saga";
 import EntypoIcon from "react-native-vector-icons/Entypo";
@@ -18,7 +21,8 @@ import CustomFlatList from "../component/CustomFlatList";
 import { RootState } from "../reducer/index.reducer";
 
 const Home = () => {
-  const navigation = useNavigation<StackNavigationProp<any>>();
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
+
   const dispatch = useDispatch();
   const [isMaskedAmount, setIsMaskedAmount] = useState(true);
   const trxHistoryList = useSelector(
