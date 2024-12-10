@@ -12,12 +12,13 @@ import { StyleProp } from "react-native";
 import StackContainer from "../component/StackContainer";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { RootState } from "../reducer/index.reducer";
 
 const Detail = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const trxHistoryDetail = useSelector(
-    (state: any) => state.trxHistory.trxHistoryDetail
+    (state: RootState) => state.trxHistory.trxHistoryDetail
   );
 
   const testID = {
@@ -26,9 +27,9 @@ const Detail = () => {
 
   const amountStyle = (): StyleProp<TextStyle> => {
     let color = "black";
-    if (trxHistoryDetail.type === TRX_TYPE.DEBIT) {
+    if (trxHistoryDetail?.type === TRX_TYPE.DEBIT) {
       color = "red";
-    } else if (trxHistoryDetail.type === TRX_TYPE.CREDIT) {
+    } else if (trxHistoryDetail?.type === TRX_TYPE.CREDIT) {
       color = "green";
     }
     return { color: color, fontSize: 19 };
@@ -36,26 +37,26 @@ const Detail = () => {
 
   return (
     <StackContainer title="Transaction Detail" style={styles.container}>
-      <View testID={testID.container} key={trxHistoryDetail.id}>
+      <View testID={testID.container} key={trxHistoryDetail?.id}>
         <View style={styles.innerContainer}>
           <Text style={styles.typeStyle}>
-            {trxHistoryDetail.type.toUpperCase()}
+            {trxHistoryDetail?.type.toUpperCase()}
           </Text>
           <Text style={amountStyle()}>
-            {trxHistoryDetail.type === TRX_TYPE.DEBIT ? "-" : ""} MYR{" "}
-            {trxHistoryDetail.amount.toFixed(2)}
+            {trxHistoryDetail?.type === TRX_TYPE.DEBIT ? "-" : ""} MYR{" "}
+            {trxHistoryDetail?.amount.toFixed(2)}
           </Text>
         </View>
         <View style={styles.horizontalLine} />
         <View style={styles.innerContainer}>
           <Text style={styles.defaultFontSize}>Description</Text>
           <Text style={styles.defaultFontSize}>
-            {trxHistoryDetail.description}
+            {trxHistoryDetail?.description}
           </Text>
         </View>
         <View style={styles.innerContainer}>
           <Text style={styles.defaultFontSize}>Date</Text>
-          <Text style={styles.defaultFontSize}>{trxHistoryDetail.date}</Text>
+          <Text style={styles.defaultFontSize}>{trxHistoryDetail?.date}</Text>
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate(NAVIGATION.HOME)}
@@ -103,4 +104,5 @@ const styles = StyleSheet.create({
     paddingVertical: "3%",
   },
 });
+
 export default Detail;

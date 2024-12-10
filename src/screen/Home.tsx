@@ -15,13 +15,14 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { setIsLogin } from "../reducer/Login.reducer";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import CustomFlatList from "../component/CustomFlatList";
+import { RootState } from "../reducer/index.reducer";
 
 const Home = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const dispatch = useDispatch();
   const [isMaskedAmount, setIsMaskedAmount] = useState(true);
   const trxHistoryList = useSelector(
-    (state: any) => state.trxHistory.trxHistoryList
+    (state: RootState) => state.trxHistory.trxHistoryList
   );
 
   const testId = {

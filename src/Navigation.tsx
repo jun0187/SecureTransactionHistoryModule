@@ -1,19 +1,19 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Home from "./screen/Home";
-import { store } from "./store";
 import { NAVIGATION } from "./constant";
 import Login from "./screen/Login";
 import Detail from "./screen/Detail";
 import { getBiometryTypeAction } from "./saga/Login.saga";
-import { getTrxHistoryListAction } from "./saga/TrxHistory.saga";
+import { RootState } from "./reducer/index.reducer";
 
 const Stack = createStackNavigator();
 
 const Navigation = () => {
-  const isLogin = useSelector((state: any) => state.login.isLogin);
+  const isLogin = useSelector((state: RootState) => state.login.isLogin);
+  const dispatch = useDispatch();
 
   return (
     <NavigationContainer>
@@ -25,7 +25,7 @@ const Navigation = () => {
             options={{ headerShown: false }}
             listeners={{
               focus: () => {
-                store.dispatch(getBiometryTypeAction());
+                dispatch(getBiometryTypeAction());
               },
             }}
           />

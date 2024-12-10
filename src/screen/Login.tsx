@@ -8,12 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import StackContainer from "../component/StackContainer";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { setIsLogin } from "../reducer/Login.reducer";
+import { RootState } from "../reducer/index.reducer";
 
 const Login = () => {
   const styles = useStyle();
   const dispatch = useDispatch();
 
-  const biometryType = useSelector((state: any) => state.login.biometryType);
+  const biometryType = useSelector(
+    (state: RootState) => state.login.biometryType
+  );
 
   const onPressAuth = async () => {
     // if biometricType is null, Next Button is show and navigate to Home screen
